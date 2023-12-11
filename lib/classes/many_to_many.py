@@ -17,10 +17,29 @@ class Coffee:
                 self._name = name
         
     def orders(self):
-        pass
+        # return [order for order in Order.all if order.coffee == self]
+        orders = []
+        for order in Order.all:
+            if order.coffee.name == self.name:
+                orders.append(order)
+        return orders
+
     
     def customers(self):
-        pass
+        # customer_set = set([order.customer for order in Order.all if order.coffee == self])
+        # return list(customer_set)
+
+        customers = []
+        for order in Order.all:
+            if order.coffee.name == self.name:
+                if order.customer not in customers:
+                    customers.append(order.customer)
+
+        for i in customers:
+            print(i.name)
+        print(customers)
+        return customers
+
     
     def num_orders(self):
         pass
@@ -49,7 +68,7 @@ class Customer:
 
     @property
     def name(self):
-        return self.name
+        return self._name
     
     @name.setter
     def name(self, name):
@@ -79,10 +98,15 @@ class Customer:
 
 
 class Order:
+
+    all = []
+
     def __init__(self, customer, coffee, price):
         self.customer = customer
         self.coffee = coffee
         self._price = price
+        Order.all.append(self)
+        
 
     @property
     def price(self):
@@ -91,4 +115,6 @@ class Order:
     @price.setter
     def price(self, price):
         if not hasattr(self, price):
-            if isinstance(price, float) and 
+            if isinstance(price, float) and 1.0 <= price <= 10.0:
+                self._price = price
+    
