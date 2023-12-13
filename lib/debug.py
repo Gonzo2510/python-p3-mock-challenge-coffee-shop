@@ -33,10 +33,4 @@ Order(customer, coffee, 2.0)
 Order(customer_2, coffee, 2.0)
 Order(customer, coffee, 5.0)
 
-print()
-
-coffee.customers()
-x= len(set(coffee.customers()))
-y = len(coffee.customers())
-
-print(x, y)
+customer.orders()
